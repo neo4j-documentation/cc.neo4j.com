@@ -6,7 +6,7 @@ import { range } from 'fp-ts/Array'
 import { Tile, TileProps } from 'components/Tile';
 
 export default {
-  title: 'Relate/Tile',
+  title: 'CC/Tile',
   component: Tile,
   argTypes: {
     backgroundColor: { control: 'color' },

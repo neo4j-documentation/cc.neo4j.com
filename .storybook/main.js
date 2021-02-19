@@ -7,7 +7,16 @@ module.exports = {
   ],
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
+    "@storybook/addon-essentials",
+    'storybook-dark-mode',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
   ],
   webpackFinal: async config => {
     // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
@@ -47,8 +56,7 @@ module.exports = {
     })
 
     config.resolve.alias = {
-      "components": path.resolve(__dirname, "..", "src", "components"),
-      "machines": path.resolve(__dirname, "..", "src", "machines")
+      "components": path.resolve(__dirname, "..", "src", "components")
     }
     
     config.resolve.extensions.push(".ts", ".tsx")

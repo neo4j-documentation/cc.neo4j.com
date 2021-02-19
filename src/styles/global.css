@@ -39,11 +39,11 @@
     padding: 12px 24px;
   }
   .relate-tile {
-    @apply px-2 py-1 inline-flex items-center truncate text-center shadow w-full h-12;
+    @apply rounded-full px-2 py-1 inline-flex items-center truncate text-center shadow w-full h-12;
     @apply hover:shadow-lg;
     @apply ring-0;
   }
   .relate-tile--selected {
-    @apply ring-inset ring-2 ring-yellow-200;
+    @apply ring-inset ring-2 ring-blue-200;
   }
 }

@@ -5,11 +5,11 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Sidebar, SidebarProps } from 'components/Sidebar';
 
 export default {
-  title: 'Relate/Sidebar',
+  title: 'CC/Sidebar',
   component: Sidebar,
 } as Meta;
 
-const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />;
+const Template: Story<SidebarProps> = (args) => <div className="h-screen absolute top-0 left-0"><Sidebar {...args} /></div>;
 
 export const NormalSidebar = Template.bind({});
 NormalSidebar.args = {

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Header } from 'components/Header';
-import './page.css';
+import { SiteHeader } from 'components/SiteHeader';
 
 export interface PageProps {
   user?: {};
@@ -12,7 +11,7 @@ export interface PageProps {
 
 export const Page: React.FC<PageProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <article>
-    <Header user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount} />
+    <SiteHeader user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount} />
 
     <section>
       <h2>Pages in Storybook</h2>
