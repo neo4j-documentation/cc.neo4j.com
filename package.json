@@ -20,7 +20,8 @@
     "fetch:gists": "ts-node scripts/fetch-gists-graphql.ts > data/gists.json",
     "fetch:people": "ts-node scripts/fetch-discourse-users.ts > data/people.json",
     "fetch:meetups": "ts-node scripts/fetch-meetups-groups.ts > data/meetups.json",
-    "fetch:awesome": "echo 'Fetch from https://github.com/neueda/awesome-neo4j/blob/master/README.md'"
+    "fetch:awesome": "echo 'Fetch from https://github.com/neueda/awesome-neo4j/blob/master/README.md'",
+    "fetch:free": "ts-node scripts/fetch-free-dev.ts > data/free-dev.json"
   },
   "license": "0BSD",
   "dependencies": {
@@ -71,24 +72,36 @@
     "@tailwindcss/typography": "^0.4.0",
     "@types/axios": "^0.14.0",
     "@types/luxon": "^1.26.0",
+    "@types/mdast": "^3.0.3",
     "@types/react-helmet": "^6.1.0",
     "@types/react-table": "^7.0.28",
+    "@types/unist": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "apollo": "^2.32.5",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "babel-preset-react-app": "^10.0.0",
+    "cheerio": "^1.0.0-rc.5",
     "eslint-config-react-app": "^6.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "gatsby-plugin-root-import": "^2.0.6",
     "gatsby-plugin-sitemap": "^2.12.0",
+    "nanoid": "^3.1.20",
     "neo4j-driver": "^4.2.2",
     "npm-run-all": "^4.1.5",
+    "remark": "^13.0.0",
     "storybook-dark-mode": "^1.0.5-canary.138.3114.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "unist-util-filter": "^2.0.3",
+    "unist-util-find-after": "^3.0.0",
+    "unist-util-find-all-after": "^3.0.2",
+    "unist-util-find-all-between": "^2.1.0",
+    "unist-util-inspect": "^6.0.1",
+    "unist-util-is": "^4.0.4",
+    "unist-util-visit": "^2.0.3"
   }
 }
