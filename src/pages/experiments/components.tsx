@@ -8,7 +8,7 @@ import { ActivityStream } from "components/ActivityStream";
 import { Card } from "components/Card";
 import { ActivityCalendar } from "components/ActivityCalendar";
 import { BigStats, BigStatsProps } from "components/BigStats";
-import { DataGlobe } from "components/DataGlobe";
+// import { DataGlobe } from "components/DataGlobe";
 
 import { range, flatten } from "fp-ts/lib/Array";
 
@@ -58,9 +58,9 @@ const ComponentShowPage:React.FC<{data:any}> = ({data}) => {
         <Card title="Big Stats">
           <BigStats {...sampleStats} />
         </Card>
-        <Card title="Data Globe">
+        {/* <Card title="Data Globe">
           <DataGlobe />
-        </Card>
+        </Card> */}
       </div>
     </Layout>
   )

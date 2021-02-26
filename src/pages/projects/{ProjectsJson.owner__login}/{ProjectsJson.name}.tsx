@@ -5,10 +5,8 @@ import { graphql } from "gatsby";
 
 import Layout from "components/SiteLayout";
 
-const avatarUrl = (template:string) => `https://sjc3.discourse-cdn.com/business4/${template.replace('{size}','512')}`
-
-const PersonPage:React.FC<{data:any}> = ({data}) => {
-  const user = data.peopleJson;
+const ProjectPage:React.FC<{data:any}> = ({data}) => {
+  const project = data.projectsJson;
   return (
     <Layout>
       <div className="min-h-screen bg-gray-100">
@@ -19,13 +17,13 @@ const PersonPage:React.FC<{data:any}> = ({data}) => {
             <div className="flex items-center space-x-5">
               <div className="flex-shrink-0">
                 <div className="relative">
-                  <img className="h-16 w-16 rounded-full" src={avatarUrl(user.avatar_template)} alt=""/>
+                  {/* <img className="h-16 w-16 rounded-full" src={avatarUrl(user.avatar_template)} alt=""/> */}
                   <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
-                <p className="text-sm font-medium text-gray-500"><span className="text-gray-900">{user.title}</span>. Member since <time dateTime="2020-08-25">{DateTime.fromISO(user.created_at).toLocaleString(DateTime.DATE_MED)}</time></p>
+                <h1 className="text-2xl font-bold text-gray-900">{project.nameWithOwner}</h1>
+                <p className="text-sm font-medium text-gray-500">Since <time dateTime="2020-08-25">{DateTime.fromISO(project.createdAt).toLocaleString(DateTime.DATE_MED)}</time></p>
               </div>
             </div>
           </div>
@@ -47,22 +45,6 @@ const PersonPage:React.FC<{data:any}> = ({data}) => {
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                       <div className="sm:col-span-1">
                         <dt className="text-sm font-medium text-gray-500">
-                          Application for
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          Backend Developer
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
-                          Email address
-                        </dt>
-                        <dd className="mt-1 text-sm text-gray-900">
-                          {user.email ? (<a href={"mailto:"+user.email}>user.email</a>) : ""}
-                        </dd>
-                      </div>
-                      <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">
                           Salary expectation
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
@@ -82,7 +64,7 @@ const PersonPage:React.FC<{data:any}> = ({data}) => {
                           About
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                          Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                          {project.description}
                         </dd>
                       </div>
                       <div className="sm:col-span-2">
@@ -384,18 +366,40 @@ const PersonPage:React.FC<{data:any}> = ({data}) => {
   )
 }
 
-export default PersonPage
+export default ProjectPage
 
 export const query = graphql`
 query ($id:String) {
-  peopleJson(id: {eq:$id}) {
-      id
-      username
-      name
-      title
-      avatar_template
-      created_at
-      email
+  projectsJson(id: {eq: $id}) {
+    id
+    owner {
+      login
+      __typename
+    }
+    languages {
+      nodes {
+        name
+      }
+    }
+    repositoryTopics {
+      nodes {
+        topic {
+          name
+        }
+      }
+    }
+    updatedAt
+    createdAt
+    description
+    isTemplate
+    nameWithOwner
+    forks {
+      nodes {
+        owner {
+          login
+        }
+      }
+    }
   }
 }
 `
