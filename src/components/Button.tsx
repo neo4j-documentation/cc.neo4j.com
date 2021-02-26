@@ -33,11 +33,11 @@ export const Button: React.FC<ButtonProps> = ({
   label,
   ...props
 }) => {
-  const mode = primary ? 'relate-button--primary' : 'relate-button--secondary';
+  const mode = primary ? 'cc-button--primary' : 'cc-button--secondary';
   return (
     <button
       type="button"
-      className={['relate-button', `relate-button--${size}`, mode].join(' ')}
+      className={['cc-button', `cc-button--${size}`, mode].join(' ')}
       style={{ backgroundColor }}
       {...props}
     >

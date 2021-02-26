@@ -9,6 +9,9 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { SmartList, SmartListProps } from '../components/SmartList';
 
 import {TextPlaceholder} from './TextPlaceholder';
+import { SmartListItem } from 'components/SmartListItem';
+import { fakePerson } from './FakeRecord.factory';
+import { fake } from 'faker';
 
 export const ItemPlaceholder:React.FC<CellProps<any>> = ({value}) => <TextPlaceholder text={value}/>
 
@@ -17,7 +20,7 @@ export default {
   component: SmartList,
 } as Meta;
 
-const Template: Story<SmartListProps> = (args) => <SmartList renderItem={ItemPlaceholder} {...args} />;
+const Template: Story<SmartListProps> = (args) => <SmartList renderItem={SmartListItem} {...args} />;
 
 export const EmptyStream = Template.bind({});
 EmptyStream.args = {
@@ -26,25 +29,34 @@ EmptyStream.args = {
 
 export const SingleTextItem = Template.bind({});
 SingleTextItem.args = {
-  items: ["Hello"]
+  items: [{name:"Hello"}]
 };
 SingleTextItem.argTypes = {
   renderItem: { table: { disable: true } },
 };
-export const TwoTextItems = Template.bind({});
-TwoTextItems.args = {
-  items: range(1,2)
+
+export const SinglePerson = Template.bind({});
+SinglePerson.args = {
+  items: [fakePerson()]
+};
+SingleTextItem.argTypes = {
+  renderItem: { table: { disable: true } },
+};
+
+export const TwoPeople = Template.bind({});
+TwoPeople.args = {
+  items: range(1,2).map(fakePerson)
 };
 
 
-export const ThreeTextItems = Template.bind({});
-ThreeTextItems.args = {
-  items: range(1,3)
+export const ThreePeople = Template.bind({});
+ThreePeople.args = {
+  items: range(1,3).map(fakePerson)
 };
 
 
-export const HundredTextItems = Template.bind({});
-HundredTextItems.args = {
-  items: range(1,100)
+export const HundredPeople = Template.bind({});
+HundredPeople.args = {
+  items: range(1,100).map(fakePerson)
 };
 

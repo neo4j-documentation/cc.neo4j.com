@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   // purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  purge: process.env.NODE_ENV === "development" ? false : ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
@@ -18,6 +19,9 @@ module.exports = {
             DEFAULT: '#c0ccda',
             light: '#e0e6ed',
             lightest: '#f9fafc',
+          },
+          selected: {
+            blue: '#00a8ff'
           }
         }
     },

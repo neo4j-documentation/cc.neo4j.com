@@ -34,7 +34,7 @@ query {
       nodes {
         ... on GitHub_Repository {
           owner { login }
-          repositoryTopics {nodes {topic {name}}}
+          repositoryTopics(first:10) {nodes {topic {name}}}
           nameWithOwner
           description
           updatedAt

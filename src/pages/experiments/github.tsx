@@ -4,12 +4,20 @@ import { graphql } from "gatsby";
 
 import Layout from "components/SiteLayout";
 import { SmartList } from "components/SmartList";
-import { Tile } from "components/Tile";
+import { SmartListItem } from "components/SmartListItem";
+import { reportUnhandledExceptionOnInvocation } from "xstate/lib/utils";
+
 
 const GithubRepoListPage:React.FC<{data:any}> = ({data}) => {
+  const items =  data.allProjectsJson.edges.map ( (repo:any) => ({
+    id: repo.node.id,
+    url: repo.node.url,
+    title: repo.node.nameWithOwner,
+    description: repo.node.description
+  }))
   return (
     <Layout title="projects">
-      <SmartList items={data.allProjectsJson.edges.map( (repo:any) => ({id:repo.node.nameWithOwner}) )} renderItem={Tile} />
+      <SmartList items={items} renderItem={SmartListItem} />
     </Layout>
   )
 }
@@ -23,10 +31,9 @@ query {
     edges {
       node {
         id
+        url
         nameWithOwner
-        owner {
-          login
-        }
+        description
       }
     }
   }

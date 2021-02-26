@@ -8,7 +8,7 @@
 @import "~@fontsource/open-sans/index.css";
 
 @layer components {
-  .relate-button {
+  .cc-button {
       font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 700;
       border: 0;
@@ -17,33 +17,37 @@
       display: inline-block;
       line-height: 1;
   }
-  .relate-button--primary {
+  .cc-button--primary {
     @apply bg-green-400;
     color: white;
   }
-  .relate-button--secondary {
+  .cc-button--secondary {
     color: #333;
     background-color: transparent;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
   }
-  .relate-button--small {
+  .cc-button--small {
     font-size: 12px;
     padding: 10px 16px;
   }
-  .relate-button--medium {
+  .cc-button--medium {
     font-size: 14px;
     padding: 11px 20px;
   }
-  .relate-button--large {
+  .cc-button--large {
     font-size: 16px;
     padding: 12px 24px;
   }
-  .relate-tile {
+  .cc-tile {
     @apply rounded-full px-2 py-1 inline-flex items-center truncate text-center shadow w-full h-12;
     @apply hover:shadow-lg;
     @apply ring-0;
   }
-  .relate-tile--selected {
+  .cc-tile--selected {
     @apply ring-inset ring-2 ring-blue-200;
+  }
+  .cc-tile--expanded {
+    @apply h-24;
+    @apply rounded-3xl
   }
 }

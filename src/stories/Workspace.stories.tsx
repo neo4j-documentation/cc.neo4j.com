@@ -6,7 +6,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Workspace, WorkspaceProps } from '../components/Workspace';
 
-import {HundredTextItems} from './SmartList.stories';
+import {HundredPeople} from './SmartList.stories';
 import {TextPlaceholder} from './TextPlaceholder';
 import { SmartListProps } from '../components/SmartList';
 
@@ -33,7 +33,7 @@ TwoTextChildren.args = {
 
 export const WithSmartList = Template.bind({});
 WithSmartList.args = {
-  children: <HundredTextItems {...HundredTextItems.args as SmartListProps} />
+  children: <HundredPeople {...HundredPeople.args as SmartListProps} />
 };
 
 // export const WithTwoStreams = Template.bind({});

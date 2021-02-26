@@ -4,12 +4,12 @@ import { graphql } from "gatsby";
 
 import Layout from "components/SiteLayout";
 import { SmartList } from "components/SmartList";
-import { Tile } from "components/Tile";
+import { SmartListItem } from "components/SmartListItem";
 
 const GraphGistListPage:React.FC<{data:any}> = ({data}) => {
   return (
     <Layout title="gists">
-      <SmartList items={data.allGistsJson.edges.map( (gist:any) => (gist.node)) } renderItem={Tile} />
+      <SmartList items={data.allGistsJson.edges.map( (gist:any) => (gist.node)) } renderItem={SmartListItem} />
     </Layout>
   )
 }
@@ -21,8 +21,9 @@ query {
   allGistsJson(limit: 100) {
     edges {
       node {
-        title
         id
+        title
+        url
       }
     }
   }

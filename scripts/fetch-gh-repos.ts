@@ -40,7 +40,10 @@ const fetchFromGithub = async () => {
                 repositoryCount
                 nodes {
                   ... on Repository {
+                    id
+                    url
                     owner { login,  __typename}
+                    name
                     nameWithOwner
                     description
                     updatedAt

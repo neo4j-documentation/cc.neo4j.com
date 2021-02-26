@@ -1,7 +1,8 @@
 const path = require('path');
 
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
+  // path: `.env.${process.env.NODE_ENV}`,
+  path: `.env.development`,
 });
 
 module.exports = {
@@ -87,8 +88,8 @@ module.exports = {
   ],
   siteMetadata: {
     title: `Neo4j Community Center`,
+    description: `By, For and About the Community`,
     siteUrl: `https://cc.neo4j.com`,
-
   },
 
 };

@@ -84,7 +84,7 @@ export const SmartList:React.FC<SmartListProps> = (props) => {
             // Apply the row props
             <div
                 {...row.getRowProps()}
-                className="snap-start grid grid-cols-1 bg-gray-100 font-mono h-full"
+                className="snap-start grid grid-cols-1 font-mono h-full"
               >
     
               {// Loop over the rows cells

@@ -18,7 +18,10 @@ const toConsole = (o:any) => { console.log(`${firstTime ? "":",\n"}${JSON.string
 
 console.log('[');
 
-session.run('MATCH (n:Meetup:Group) RETURN {id:n.key, properties:properties(n)} as o')
+session.run(`MATCH (n:Meetup:Group)-[:TAGGED]->(tag)
+  WITH n, collect(tag.name) as tags
+  RETURN {id:n.key, labels:tags, properties:properties(n)} as o`
+  )
   .records()
   .pipe(
     map(record => record.toObject()),

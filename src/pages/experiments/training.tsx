@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 
 import Layout from "components/SiteLayout";
 import { SmartList } from "components/SmartList";
-import { Tile } from "components/Tile";
+import { SmartListItem } from "components/SmartListItem";
 
 const TrainingListPage:React.FC<{data:any}> = ({data}) => {
   return (
@@ -12,7 +12,7 @@ const TrainingListPage:React.FC<{data:any}> = ({data}) => {
       <SmartList items={data.allTrainingJson.edges.map( (training:any) => ({
         ...training.node,
         ...training.node.properties
-      }))} renderItem={Tile} />
+      }))} renderItem={SmartListItem} />
     </Layout>
   )
 }

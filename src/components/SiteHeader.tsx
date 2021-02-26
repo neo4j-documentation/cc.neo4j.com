@@ -5,42 +5,37 @@ import { toggleMachine } from './toggle-machine';
 
 import {Link} from 'gatsby';
 
-import {Button} from './Button';
+import {useAuth} from '../services/auth-provider';
+import {useUser} from '../services/user-provider';
 
 const links = [
   {
     to: '/',
     title: 'Home'
-  },
-  {
-    to: '/experiments',
-    title: 'Experiments'
   }
 ]
 
 export interface SiteHeaderProps {
-  user?: {};
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
 }
 
 const ProfileWidget: React.FC<SiteHeaderProps> = (props) => {
 
   const [activeProfile, toggleProfile] = useMachine(toggleMachine);
 
+  const {user, setUser, clearUser} = useUser();
+  const {isAuthenticated} = useAuth();
+  
   return (
     <div className="ml-3 relative">
       <div>
         <button onClick={() => toggleProfile('TOGGLE')} className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true">
           <span className="sr-only">Open user menu</span>
-          { props.user ? 
-            (<img className="h-8 w-8 rounded-full border-2 border-blue-300 border-solid" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=4AywNw53Tq&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>)
+          { (isAuthenticated() && user) ? 
+            (<img className="h-8 w-8 rounded-full border-2 border-blue-300 border-solid" src={user.image} alt=""/>)
             :
-            (<svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 p-1 text-yellow-200 rounded-full border-2 border-yellow-300 border-solid" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clipRule="evenodd" />
-            </svg>
-            )
+            (<svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-8 w-8 p-1 text-yellow-200 rounded-full border-2 border-yellow-300 border-solid" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>)
           }
         </button>
       </div>
@@ -49,7 +44,11 @@ const ProfileWidget: React.FC<SiteHeaderProps> = (props) => {
   )
 }
 
-const ProfileMenu: React.FC<SiteHeaderProps> = ({user, onLogin, onLogout, onCreateAccount}) => (
+const ProfileMenu: React.FC<SiteHeaderProps> = ({}) =>  {
+  
+  const {register, logout, isAuthenticated} = useAuth();
+
+  return (
   /* <!--
       Profile dropdown panel, show/hide based on dropdown state.
 
@@ -60,25 +59,29 @@ const ProfileMenu: React.FC<SiteHeaderProps> = ({user, onLogin, onLogout, onCrea
         From: "transform opacity-100 scale-100"
         To: "transform opacity-0 scale-95"
     --> */
-    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+    <div className="origin-top-right absolute right-0 z-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 
-      {user ? (
+      {isAuthenticated() ? (
         <>
           <Link to={`/profile`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
           <Link to={`/profile/settings`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</Link>
-          <span onClick={onLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</span>
+          <span onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</span>
         </>
       ) : (
         <>
-          <span onClick={onLogin} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign in</span>
-          <span onClick={onCreateAccount} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign up</span>
+          <Link to={`/account`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign In</Link>
+          {/* <span onClick={onLogin} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign in</span> */}
+          <span onClick={register} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign up</span>
         </>
       )}
     </div>
 
-)
+)}
 
-const Notifications: React.FC<SiteHeaderProps> = ({user}) => {
+const Notifications: React.FC<{}> = ({}) => {
+
+  const {user} = useUser();
+
   if (user !== undefined) {
     (
       <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -94,7 +97,6 @@ const Notifications: React.FC<SiteHeaderProps> = ({user}) => {
 }
 
 export const SiteHeader: React.FC<SiteHeaderProps> = (props) => {
-  const {user, onLogin, onLogout, onCreateAccount} = props;
 
   return (
     <nav className="bg-gray-800 flex-none">
@@ -124,7 +126,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = (props) => {
           </div>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex items-center">
-              <Notifications {...props} />
+              <Notifications />
               <ProfileWidget {... props} />
             </div>
           </div>
@@ -196,38 +198,3 @@ export const SiteHeader: React.FC<SiteHeaderProps> = (props) => {
   );
   };
 
-export const ExampleHeader: React.FC<SiteHeaderProps> = ({ user, onLogin, onLogout, onCreateAccount }) => (
-  <header>
-    <div className="wrapper">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" fillRule="evenodd">
-            <path
-              d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
-              fill="#FFF"
-            />
-            <path
-              d="M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z"
-              fill="#555AB9"
-            />
-            <path
-              d="M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z"
-              fill="#91BAF8"
-            />
-          </g>
-        </svg>
-        <h1>Acme</h1>
-      </div>
-      <div>
-        {user ? (
-          <Button size="small" onClick={onLogout} label="Log out" />
-        ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-          </>
-        )}
-      </div>
-    </div>
-  </header>
-);
